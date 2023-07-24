@@ -31,8 +31,7 @@ resources = {
 }
 
 profit = 0
-
-user_choice = input('What would you like? (espresso/latte/cappuccino): ')
+is_on = True
 
 
 def reduce_resource(ingredients):
@@ -55,7 +54,7 @@ def insert_coins(flavor):
 
     if sum_in_dollars > flavor['cost']:
         difference_in_dollars = sum_in_dollars - flavor['cost']
-        print(f'Here is ${round(difference_in_dollars)} in change.')
+        print(f'Here is ${round(difference_in_dollars, 2)} in change.')
         print(f"Here is your {user_choice} ☕️. Enjoy!")
     elif sum_in_dollars == flavor['cost']:
         print(f"Here is your {user_choice} ☕️. Enjoy!")
@@ -64,7 +63,6 @@ def insert_coins(flavor):
 
 
 def quantity_check(flavor):
-
     if resources['water'] < flavor['ingredients']['water']:
         print('Sorry there is not enough water.')
     elif 'milk' in flavor.keys():
@@ -77,15 +75,22 @@ def quantity_check(flavor):
         insert_coins(flavor)
 
 
-if user_choice == 'report':
-    print(f"Water: {resources['water']}ml")
-    print(f"Milk: {resources['milk']}ml")
-    print(f"Coffee: {resources['coffee']}g")
-    print(f"Coffee: ${profit}")
-elif user_choice == 'espresso':
-    quantity_check(MENU['espresso'])
-elif user_choice == 'latte':
-    quantity_check(MENU['latte'])
+while is_on:
+    user_choice = input('What would you like? (espresso/latte/cappuccino): ')
+    if user_choice == 'report':
+        print(f"Water: {resources['water']}ml")
+        print(f"Milk: {resources['milk']}ml")
+        print(f"Coffee: {resources['coffee']}g")
+        print(f"Profit: ${profit}")
+    elif user_choice == 'espresso':
+        quantity_check(MENU['espresso'])
+    elif user_choice == 'latte':
+        quantity_check(MENU['latte'])
 
-elif user_choice == 'cappuccino':
-    quantity_check(MENU['cappuccino'])
+    elif user_choice == 'cappuccino':
+        quantity_check(MENU['cappuccino'])
+    elif user_choice == 'off':
+        is_on = False
+    else:
+        print('Invalid input')
+
