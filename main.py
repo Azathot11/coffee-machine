@@ -1,16 +1,67 @@
-# This is a sample Python script.
+MENU = {
+    "espresso": {
+        "ingredients": {
+            "water": 50,
+            "coffee": 18,
+        },
+        "cost": 1.5,
+    },
+    "latte": {
+        "ingredients": {
+            "water": 200,
+            "milk": 150,
+            "coffee": 24,
+        },
+        "cost": 2.5,
+    },
+    "cappuccino": {
+        "ingredients": {
+            "water": 250,
+            "milk": 100,
+            "coffee": 24,
+        },
+        "cost": 3.0,
+    }
+}
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+resources = {
+    "water": 300,
+    "milk": 200,
+    "coffee": 100,
+}
+
+user_choice = input('What would you like? (espresso/latte/cappuccino): ')
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def insert_coins():
+    quarter = int(input('How many quarters?: '))
+    penny = int(input('How many pennies?: '))
+    nickel = int(input('How many nickels?: '))
+    dime = int(input('How many dimes?: '))
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def quantity_check(flavor):
+    print(flavor)
+    if resources['water'] < flavor['water']:
+        print('Sorry there is not enough water.')
+    elif 'milk' in flavor.keys():
+        if resources['milk'] < flavor['milk']:
+            print('Sorry there is not enough milk.')
+    elif resources['coffee'] < flavor['coffee']:
+        print('Sorry there is not enough coffee.')
+    else:
+        print('Please insert coins.')
+        insert_coins()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+if user_choice == 'report':
+    print(f"Water: {resources['water']}ml")
+    print(f"Milk: {resources['milk']}ml")
+    print(f"Coffee: {resources['coffee']}g")
+elif user_choice == 'espresso':
+    quantity_check(MENU['espresso']['ingredients'])
+elif user_choice == 'latte':
+    quantity_check(MENU['latte']['ingredients'])
+
+elif user_choice == 'cappuccino':
+    quantity_check(MENU['cappuccino']['ingredients'])
