@@ -93,4 +93,3 @@ while is_on:
         is_on = False
     else:
         print('Invalid input')
-
